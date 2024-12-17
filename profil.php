@@ -42,7 +42,7 @@ include "includes/header.php";
                     </tr>
                     <tr>
                         <td>Mot de passe</td>
-                        <td>Changer le mot de passe</td>
+                        <td><a href="password_change.php">Changer le mot de passe</a></td>
                         <td></td>
                     </tr>
                 </table>
@@ -74,7 +74,7 @@ include "includes/header.php";
                         <td>
                             <!-- Affiche le mail admin pour le contacter en cas de bug sur le site. -->
                             <?php
-                            $mailAdmin = $pdo->prepare('SELECT adresse_email FROM employés WHERE admin = 1 AND id_employe = 1');
+                            $mailAdmin = $pdo->prepare('SELECT adresse_email FROM employés WHERE admin = 1');
                             $mailAdmin->execute([]);
                             $value = $mailAdmin->fetch(PDO::FETCH_ASSOC); // Récupération d'un enregistrement
 

@@ -15,20 +15,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $inputLogin = isset($_POST['login']) ? trim($_POST['login']) : '';
     $inputPassword = isset($_POST['mot_de_passe']) ? trim($_POST['mot_de_passe']) : '';
     //ici, appeler la fonction de cryptage en mode "$inputPassword = hashage($inputPassword); avec hashage() la fonction qui renvoie le mot de passe hashé"
-
+    //$inputPassword = password_hash($inputPassword, PASSWORD_DEFAULT);
     // on vérifie si les deux saisies utilisateurs ne sont pas vides
     if (!empty($inputLogin) && !empty($inputPassword)) {
         // preparation de la commande sql et exécution
-        $stmt = $pdo->prepare('SELECT * FROM employés WHERE login = :login AND mot_de_passe = :mot_de_passe');
+        $stmt = $pdo->prepare('SELECT * FROM employés WHERE login = :login');
         $stmt->execute([
             'login' => $inputLogin,
-            'mot_de_passe' => $inputPassword,
         ]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if ($user) {
+        if (password_verify($inputPassword, $user['mot_de_passe'])) {
             // si connexion réussie
             session_regenerate_id(true);
+
             //stockage du contenu de l'enregistrement
             $_SESSION['id_employe'] = $user['id_employe'];
             $_SESSION['login'] = $user['login'];
@@ -42,8 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $_SESSION['adresse_email'] = $user['adresse_email'];
             $_SESSION['adresse_physique'] = $user['adresse_physique'];
             $_SESSION['admin'] = $user['admin'];
-
-            $successMessage = "Connexion réussie ! Bienvenue, " . htmlspecialchars($user['prenom_employe']);
+            /*
+            //stockage des données que l'on ajoute automatiquement à la table connexion à chaque connexion.
+            if (isset($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+                $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+            } else {
+                $ip = $_SERVER['REMOTE_ADDR'];
+            }
+            $date_connexion = date("Y-m-d H:i:s");
+            $stmt = $pdo->prepare('INSERT INTO connexion (historique,adresse_ip,id_employe) VALUES (:historique, :ip,:id_emp');
+            $stmt->execute(['historique' => $date_connexion, 'ip' => $ip, 'id_emp' => $user['id_employe']]);
+            */
+            //redirection par défaut au profil utilisateur quand la connexion est faite.
             header('Location: profil.php');
         } else {
             // Connexion échouée

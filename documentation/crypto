@@ -1,0 +1,16 @@
+1- Explication des différentes sortes de chiffrements (notament le hachage), de plus cet article mentionne les langages de programmation à privilégier pour implémenter ces algorithmes (python ou C++) :
+ https://canada.lenovo.com/fr/ca/en/glossary/how-to-encrypt-file/?orgRef=https%253A%252F%252Fwww.google.com%252F
+
+
+Explication plus en détail du hashing, mention des algorithmes de hashing conseillés par l’IETF (Internet Engineering Taskforce) en 2021 : Argon2, Bcrpt, Scrypt, PBKDF2. De plus, cet article fait mention d’une méthode nommé “Salty and Peppers” :
+ 
+https://www.ionos.fr/digitalguide/sites-internet/developpement-web/hachage/
+2- La réponse est oui, il faut contrôler les mots de passe entrés par les utilisateurs et les forcer à en choisir un plus complexe, et qui sera donc plus difficile à pirater.
+
+1er argument : Les pirates utilisent des bases contenant des millions de mots de passe courants pour tenter des attaques par force brute ou des attaques par dictionnaire (tester tous les mots du dictionnaire, tester les combinaisons de mots les plus utilisées etc).
+Des bases publiques comme celles de “Have I Been Pwned” (https://haveibeenpwned.com/) ou “10 million most common passwords” (https://github.com/danielmiessler/SecLists/blob/master/Passwords/Common-Credentials/10-million-password-list-top-1000000.txt)  répertorient des mots de passe compromis dans des fuites de données. De plus, chaque année, les mots de passe les plus utilisés sont recensés sur des sites publics exploitables par les pirates pour nourrir leurs listes de mot de passe (https://nordpass.com/fr/most-common-passwords-list/).
+
+2ème argument : Même sans utiliser des listes de mot de passe, les technologies d’aujourd’hui permettent de “brute force”(tester tous les mots de passe possibles) les mots de passe les moins complexes. Selon les résultats de l’étude d’Hive Systems 2024, entreprise spécialisée dans les systèmes de sécurité informatique, il est de plus en plus facile pour les hackers de pirater des mots de passe mal sécurisé :
+https://www.francenum.gouv.fr/magazine-du-numerique/combien-de-temps-un-pirate-met-il-pour-trouver-votre-mot-de-passe-comment
+
+À l’aide de ces informations, on peut affirmer que forcer l'utilisateur à choisir un mot de passe plus sécurisé si celui qu’il a choisi dans un premier temps ne convient pas est impératif.

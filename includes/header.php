@@ -12,13 +12,15 @@ session_start();
     <title>Page Gérico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="../styles/footer.css">
 </head>
 
 <body>
     <div class="container-fluid">
         <div class="row top-bar">
             <div class="col-4 logo">
-                <img src="logo.png" alt="Logo" style="width: 50px;"> Gerico
+                <a href="../index.php"><img src="../images/GERICO-transparent.png" alt="Logo" style="width: 50px;"></a>
+
             </div>
             <div class="col-4 text-center d-flex align-items-center justify-content-center">
 
@@ -32,10 +34,10 @@ session_start();
             <div class="col-4 text-end d-flex align-items-center justify-content-end">
 
                 <?php if (isset($_SESSION['login'])): ?>
-                    <a href="deconnexion.php" class="d-block mb-3 btn btn-danger">Déconnexion</a>
+                    <a href="../deconnexion.php" class="d-block mb-3 btn btn-danger">Déconnexion</a>
 
                 <?php else: ?>
-                    <a href="connexion.php" class="d-block mb-3 btn btn-primary">Connexion</a>
+                    <a href="../connexion.php" class="d-block mb-3 btn btn-primary">Connexion</a>
 
                 <?php endif; ?>
             </div>
