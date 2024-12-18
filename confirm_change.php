@@ -1,6 +1,5 @@
 <?php
 include "includes/header.php";
-include "includes/pdo.php";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $current_password = $_POST['current_password'];
     $new_password = $_POST['new_password'];

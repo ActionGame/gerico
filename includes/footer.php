@@ -1,13 +1,10 @@
 </div>
-</div>
-</div>
-</body>
 
-<footer>
+<div class="footer">
     <div class="footer-container">
         <div class="footer-section">
             <h4>À propos</h4>
-            <p>Nous sommes une entreprise dédiée à fournir les meilleures solutions pour nos clients.</p>
+            <p>Jaaj.</p>
         </div>
         <div class="footer-section">
             <h4>Liens utiles</h4>
@@ -20,7 +17,7 @@
         </div>
         <div class="footer-section">
             <h4>Suivez-nous</h4>
-            <div class="social-icons">
+            <div class="footer-social-icons">
                 <a href="#"><i class="fab fa-facebook-f"></i></a>
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fab fa-instagram"></i></a>
@@ -31,7 +28,9 @@
     <div class="footer-bottom">
         <p>&copy; 2024 Gérico. Tous droits réservés.</p>
     </div>
-</footer>
+</div>
 
+
+</body>
 
 </html>

@@ -1,6 +1,6 @@
 <?php
 // Inclusion du fichier d'en-tête contenant les configurations ou éléments partagés
-include "header.php";
+include "../includes/header.php";
 
 // Vérifier si le formulaire a été soumis (via une requête POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -54,94 +54,85 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 }
 ?>
+<div class="add-employee-container">
+    <h1 class="add-employee-title">Ajouter un nouveau salarié</h1>
 
-<head>
-    <link rel="stylesheet" href="../styles/gestion_calendrier.css">
-</head>
-
-<body>
-    <div class="container">
-        <h1 class="title">Ajouter un nouveau salarié</h1>
-
-        <!-- Formulaire pour ajouter un salarié -->
-        <form class="form" action="ajouter_salaries.php" method="post">
-            <div class="form-group">
-                <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="nom" placeholder="Nom" required>
-            </div>
-
-            <div class="form-group">
-                <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
-            </div>
-
-            <div class="form-group">
-                <label for="telephone_pro">Téléphone professionnel :</label>
-                <input type="text" id="telephone_pro" name="telephone_pro" placeholder="Téléphone professionnel" required>
-            </div>
-
-            <div class="form-group">
-                <label for="telephone_perso">Téléphone personnel :</label>
-                <input type="text" id="telephone_perso" name="telephone_perso" placeholder="Téléphone personnel">
-            </div>
-
-            <div class="form-group">
-                <label for="login">Login :</label>
-                <input type="text" id="login" name="login" placeholder="Login">
-            </div>
-
-            <div class="form-group">
-                <label for="mot_de_passe">Mot de passe :</label>
-                <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe" required>
-            </div>
-
-            <div class="form-group">
-                <label for="date_d_arrivee">Date d'arrivée :</label>
-                <input type="date" id="date_d_arrivee" name="date_d_arrivee" required>
-            </div>
-
-            <div class="form-group">
-                <label for="poste_employe">Poste :</label>
-                <input type="text" id="poste_employe" name="poste_employe" placeholder="Poste" required>
-            </div>
-
-            <div class="form-group">
-                <label for="departement_employe">Département :</label>
-                <input type="text" id="departement_employe" name="departement_employe" placeholder="Département" required>
-            </div>
-
-            <div class="form-group">
-                <label for="adresse_email">Adresse email :</label>
-                <input type="email" id="adresse_email" name="adresse_email" placeholder="Adresse email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="adresse_physique">Adresse physique :</label>
-                <input type="text" id="adresse_physique" name="adresse_physique" placeholder="Adresse physique" required>
-            </div>
-
-            <div class="form-group">
-                <label for="admin">Administrateur :</label>
-                <input type="checkbox" id="admin" name="admin">
-            </div>
-
-            <div class="form-actions">
-                <input class="btn btn-primary" type="submit" value="Ajouter le salarié">
-            </div>
-        </form>
-
-        <!-- Lien pour retourner à la liste des salariés -->
-        <div class="link-container">
-            <a href="../pages_admin/gestion_salaries.php" class="btn btn-back">Retour à la liste des salariés</a>
+    <!-- Formulaire pour ajouter un salarié -->
+    <form class="add-employee-form" action="ajouter_salaries.php" method="post">
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="nom">Nom :</label>
+            <input type="text" id="nom" name="nom" placeholder="Nom" required>
         </div>
 
-        <!-- Afficher un message de confirmation ou d'erreur -->
-        <?php if (isset($message)): ?>
-            <div class="message success">
-                <p><?php echo htmlspecialchars($message); ?></p>
-            </div>
-        <?php endif; ?>
-    </div>
-</body>
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="prenom">Prénom :</label>
+            <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+        </div>
 
-</html>
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="telephone_pro">Téléphone professionnel :</label>
+            <input type="text" id="telephone_pro" name="telephone_pro" placeholder="Téléphone professionnel" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="telephone_perso">Téléphone personnel :</label>
+            <input type="text" id="telephone_perso" name="telephone_perso" placeholder="Téléphone personnel">
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="login">Login :</label>
+            <input type="text" id="login" name="login" placeholder="Login">
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="mot_de_passe">Mot de passe :</label>
+            <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="date_d_arrivee">Date d'arrivée :</label>
+            <input type="date" id="date_d_arrivee" name="date_d_arrivee" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="poste_employe">Poste :</label>
+            <input type="text" id="poste_employe" name="poste_employe" placeholder="Poste" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="departement_employe">Département :</label>
+            <input type="text" id="departement_employe" name="departement_employe" placeholder="Département" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="adresse_email">Adresse email :</label>
+            <input type="email" id="adresse_email" name="adresse_email" placeholder="Adresse email" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="adresse_physique">Adresse physique :</label>
+            <input type="text" id="adresse_physique" name="adresse_physique" placeholder="Adresse physique" required>
+        </div>
+
+        <div class="add-employee-form-group">
+            <label class="label-add-employee" for="admin">Administrateur :</label>
+            <input type="checkbox" id="admin" name="admin">
+        </div>
+
+        <div class="add-employee-form-actions">
+            <input class="add-employee btn btn-primary" type="submit" value="Ajouter le salarié">
+        </div>
+    </form>
+
+    <!-- Lien pour retourner à la liste des salariés -->
+    <div class="link-container">
+        <a href="../pages_admin/gestion_salaries.php" class="add-employee btn btn-back">Retour à la liste des salariés</a>
+    </div>
+
+    <!-- Afficher un message de confirmation ou d'erreur -->
+    <?php if (isset($message)): ?>
+        <div class="add-employee-message success">
+            <p><?php echo htmlspecialchars($message); ?></p>
+        </div>
+    <?php endif; ?>
+</div>

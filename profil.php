@@ -1,101 +1,70 @@
 <?php
 include "includes/header.php";
 ?>
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mon Profil</title>
-    <link rel="stylesheet" href="styles/profil.css">
+<div class="profile-container">
+    <!-- En-tête du profil -->
+    <div class="profile-header">
+        <h1><?= htmlspecialchars($_SESSION['prenom_employe']) . " " . htmlspecialchars($_SESSION['nom_employe']); ?></h1>
+        <p><?= htmlspecialchars($_SESSION['login']); ?></p>
+    </div>
 
-</head>
+    <!-- Contenu du profil -->
+    <div class="profile-content">
+        <!-- Section Informations Personnelles -->
+        <div class="profile-section">
+            <h2>Informations Personnelles</h2>
+            <div class="info-grid">
+                <div class="info-label">Nom Complet</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['prenom_employe']) . " " . htmlspecialchars($_SESSION['nom_employe']); ?></div>
 
-<body>
-    <div class="profile-container">
-        <div class="profile-header">
-            <!-- Affiche nom_employe et prenom_employe stockés dans la bd -->
-            <h1><?= htmlspecialchars($_SESSION['prenom_employe']) . " " . htmlspecialchars($_SESSION['nom_employe']); ?></h1>
-            <p><?= htmlspecialchars($_SESSION['login']); ?></p>
-        </div>
-        <div class="profile-content">
-            <div class="profile-section">
-                <!-- Affiche les infos stockées dans la BD de façon plus esthétique-->
-                <h2>Informations Personnelles</h2>
-                <table>
-                    <tr>
-                        <td>Nom Complet</td>
-                        <td>
-                            <?= htmlspecialchars($_SESSION['prenom_employe']) . " " . htmlspecialchars($_SESSION['nom_employe']); ?>
-                        </td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Adresse Mail</td>
-                        <td><?= htmlspecialchars($_SESSION['adresse_email']); ?></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td>Téléphone Personnel: </td>
-                        <td><?= htmlspecialchars($_SESSION['telephone_perso']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Mot de passe</td>
-                        <td><a href="password_change.php">Changer le mot de passe</a></td>
-                        <td></td>
-                    </tr>
-                </table>
+                <div class="info-label">Adresse Mail</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['adresse_email']); ?></div>
+
+                <div class="info-label">Téléphone Personnel</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['telephone_perso']); ?></div>
+
+                <div class="info-label">Mot de passe</div>
+                <div class="info-value">
+                    <a href="password_change.php">Changer le mot de passe</a>
+                </div>
             </div>
+        </div>
 
-            <div class="profile-section">
-                <h2>Informations Professionelles</h2>
-                <table>
-                    <tr>
-                        <td>Département</td>
-                        <td><?= htmlspecialchars($_SESSION['departement_employe']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Poste</td>
-                        <td><?= htmlspecialchars($_SESSION['poste_employe']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Téléphone Professionel: </td>
-                        <td><?= htmlspecialchars($_SESSION['telephone_pro']); ?></td>
-                    </tr>
-                    <tr>
-                        <td>Date d'arrivée</td>
-                        <td>
-                            <?= htmlspecialchars($_SESSION['date_d_arrivee']); ?>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Contacter l'Administrateur</td>
-                        <td>
-                            <!-- Affiche le mail admin pour le contacter en cas de bug sur le site. -->
-                            <?php
-                            $mailAdmin = $pdo->prepare('SELECT adresse_email FROM employés WHERE admin = 1');
-                            $mailAdmin->execute([]);
-                            $value = $mailAdmin->fetch(PDO::FETCH_ASSOC); // Récupération d'un enregistrement
+        <!-- Section Informations Professionnelles -->
+        <div class="profile-section">
+            <h2>Informations Professionnelles</h2>
+            <div class="info-grid">
+                <div class="info-label">Département</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['departement_employe']); ?></div>
 
-                            if ($value) {
-                                echo htmlspecialchars($value['adresse_email']); // Affichage sécurisé de l'adresse e-mail
-                            } else {
-                                echo "Aucun administrateur trouvé.";
-                            }
-                            ?>
+                <div class="info-label">Poste</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['poste_employe']); ?></div>
 
-                        </td>
-                    </tr>
-                </table>
+                <div class="info-label">Téléphone Professionnel</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['telephone_pro']); ?></div>
+
+                <div class="info-label">Date d'arrivée</div>
+                <div class="info-value"><?= htmlspecialchars($_SESSION['date_d_arrivee']); ?></div>
+
+                <div class="info-label">Contacter l'Administrateur</div>
+                <div class="info-value">
+                    <?php
+                    $mailAdmin = $pdo->prepare('SELECT adresse_email FROM employés WHERE admin = 1');
+                    $mailAdmin->execute([]);
+                    $value = $mailAdmin->fetch(PDO::FETCH_ASSOC);
+
+                    if ($value) {
+                        echo htmlspecialchars($value['adresse_email']);
+                    } else {
+                        echo "Aucun administrateur trouvé.";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
-</body>
-
-</html>
-
-
+</div>
 <?php
 include "includes/footer.php";
 ?>

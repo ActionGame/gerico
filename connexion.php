@@ -1,5 +1,4 @@
 <?php
-include "includes/pdo.php";
 include "includes/header.php";
 
 //session_start() inclus dans le header.php
@@ -66,48 +65,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 ?>
 
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page de connexion</title>
-    <link rel="stylesheet" href="styles/connexion.css">
-</head>
-
-<body>
+<div class="connexion col-10">
     <div class="login-container">
         <h2>Connexion</h2>
-        <form method="POST" action="">
-            <div class="form-group">
-                <label for="login">Login :</label>
-                <input type="text" id="login" name="login" placeholder="Entrez votre login" required>
+        <form class="connexion-form" method="POST" action="">
+            <div class="connexion-form-group">
+                <input type="text" id="login" name="login" placeholder="Login" required>
             </div>
-            <div class="form-group">
-                <label for="mot_de_passe">Mot de passe :</label>
-                <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Entrez votre mot de passe" required>
+            <div class="connexion-form-group">
+                <input type="password" id="mot_de_passe" name="mot_de_passe" placeholder="Mot de passe" required>
             </div>
-            <button type="submit">Se connecter</button>
+            <button type="submit" class="btn">Se connecter</button>
         </form>
 
         <?php if ($errorMessage): ?>
-
-            <div class="message error"><?= htmlspecialchars($errorMessage) ?></div>
-
+            <div class="alert alert-danger mt-3"><?= htmlspecialchars($errorMessage) ?></div>
         <?php endif; ?>
 
         <?php if ($successMessage): ?>
-
-            <div class="message success"><?= htmlspecialchars($successMessage) ?></div>
-
+            <div class="alert alert-success mt-3"><?= htmlspecialchars($successMessage) ?></div>
         <?php endif; ?>
     </div>
-    </div>
-    </div>
-    </div>
-</body>
+</div>
+</div>
+</div>
 
-<footer>
-    <p>&copy; 2024 Gérico Corporation. Tous droits réservés.</p>
-</footer>
-
-</html>
+<?php
+include "includes/footer.php";
+?>
