@@ -1,17 +1,6 @@
 <?php
 // Inclusion du fichier d'en-tête contenant les configurations ou éléments partagés
-include "header.php";
-// --- Connexion à la base de données ---
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "gerico";
-
-// Création de la connexion à la base de données
-$conn = new mysqli($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connexion échouée : " . $conn->connect_error);
-}
+include "../includes/header.php";
 
 // Récupérer l'identifiant de l'employé à partir des paramètres GET (URL)
 $id_employe = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -19,43 +8,60 @@ $id_employe = isset($_GET['id']) ? intval($_GET['id']) : 0;
 // Vérifier si le formulaire a été soumis (requête POST)
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Récupérer et sécuriser les données saisies dans le formulaire
-    $nom = $conn->real_escape_string($_POST['nom']);
-    $prenom = $conn->real_escape_string($_POST['prenom']);
-    $telephone_pro = $conn->real_escape_string($_POST['telephone_pro']);
-    $telephone_perso = $conn->real_escape_string($_POST['telephone_perso']);
-    $login = $conn->real_escape_string($_POST['login']);
-    $date_d_arrivee = $conn->real_escape_string($_POST['date_d_arrivee']);
-    $poste_employe = $conn->real_escape_string($_POST['poste_employe']);
-    $departement_employe = $conn->real_escape_string($_POST['departement_employe']);
-    $adresse_email = $conn->real_escape_string($_POST['adresse_email']);
-    $adresse_physique = $conn->real_escape_string($_POST['adresse_physique']);
+    $nom = $_POST['nom'];
+    $prenom = $_POST['prenom'];
+    $telephone_pro = $_POST['telephone_pro'];
+    $telephone_perso = $_POST['telephone_perso'];
+    $login = $_POST['login'];
+    $date_d_arrivee = $_POST['date_d_arrivee'];
+    $poste_employe = $_POST['poste_employe'];
+    $departement_employe = $_POST['departement_employe'];
+    $adresse_email = $_POST['adresse_email'];
+    $adresse_physique = $_POST['adresse_physique'];
     $admin = isset($_POST['admin']) ? 1 : 0;
 
     // Requête SQL pour mettre à jour les informations de l'employé
     $sql = "UPDATE employés 
-            SET nom_employe='$nom', prenom_employe='$prenom', telephone_pro='$telephone_pro', telephone_perso='$telephone_perso', 
-                login='$login', date_d_arrivee='$date_d_arrivee', poste_employe='$poste_employe', 
-                departement_employe='$departement_employe', adresse_email='$adresse_email', adresse_physique='$adresse_physique', 
-                admin=$admin 
-            WHERE id_employe=$id_employe";
+            SET nom_employe = :nom, prenom_employe = :prenom, telephone_pro = :telephone_pro, telephone_perso = :telephone_perso, 
+                login = :login, date_d_arrivee = :date_d_arrivee, poste_employe = :poste_employe, 
+                departement_employe = :departement_employe, adresse_email = :adresse_email, adresse_physique = :adresse_physique, 
+                admin = :admin 
+            WHERE id_employe = :id_employe";
 
-    // Exécuter la requête et vérifier si elle a réussi
-    if ($conn->query($sql) === TRUE) {
-        header("Location: administration_salaries.php");
+    $stmt = $pdo->prepare($sql);
+
+    // Liaison des paramètres
+    $stmt->bindParam(':nom', $nom);
+    $stmt->bindParam(':prenom', $prenom);
+    $stmt->bindParam(':telephone_pro', $telephone_pro);
+    $stmt->bindParam(':telephone_perso', $telephone_perso);
+    $stmt->bindParam(':login', $login);
+    $stmt->bindParam(':date_d_arrivee', $date_d_arrivee);
+    $stmt->bindParam(':poste_employe', $poste_employe);
+    $stmt->bindParam(':departement_employe', $departement_employe);
+    $stmt->bindParam(':adresse_email', $adresse_email);
+    $stmt->bindParam(':adresse_physique', $adresse_physique);
+    $stmt->bindParam(':admin', $admin, PDO::PARAM_INT);
+    $stmt->bindParam(':id_employe', $id_employe, PDO::PARAM_INT);
+
+    // Exécution de la requête et vérification
+    if ($stmt->execute()) {
+        header("Location: gestion_salaries.php");
         exit();
     } else {
-        $message = "Erreur lors de la mise à jour : " . $conn->error;
+        $message = "Erreur lors de la mise à jour : " . implode(", ", $stmt->errorInfo());
     }
 }
 
 // Récupérer les données actuelles de l'employé pour les afficher dans le formulaire
-$sql = "SELECT * FROM employés WHERE id_employe=$id_employe";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM employés WHERE id_employe = :id_employe";
+$stmt = $pdo->prepare($sql);
+$stmt->bindParam(':id_employe', $id_employe, PDO::PARAM_INT);
+$stmt->execute();
+$employe = $stmt->fetch(PDO::FETCH_ASSOC);
 
 // Vérifier si un employé correspondant a été trouvé
-if ($result->num_rows > 0) {
-    $employe = $result->fetch_assoc();
-} else {
+if (!$employe) {
     die("Aucun employé trouvé avec l'ID spécifié.");
 }
 ?>
