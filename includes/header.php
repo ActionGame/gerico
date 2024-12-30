@@ -10,7 +10,10 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gérico - Transports</title>
     <link rel="stylesheet" href="../styles/all_styles.css">
+<<<<<<< HEAD
+=======
     <link rel="stylesheet" href="../styles/modifier_salaries.css">
+>>>>>>> 14aef7493f10b88f0d1e8d5620a371a38caa163c
 
 </head>
 
