@@ -1,7 +1,5 @@
 <?php
 include "includes/header.php";
-
-//session_start() inclus dans le header.php
 ?>
 
 <?php
